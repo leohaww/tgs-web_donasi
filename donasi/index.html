@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open Donasi Sumatra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4Cg+b7Pz07+C4k1nB2aH7j9x+o8LhXj+a2A5f4QG/a7zF3jKx6kKkP5r/A6r4M1g/kQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        :root {
+            /* Warna Dasar */
+            --bg: #f7fafc;
+            --card: #ffffff;
+            --accent: #0b6e4f; /* Hijau Utama */
+            --accent-2: #0b9eeb; /* Biru Sekunder */
+            --muted: #6b7280;
+            --text-primary: #0f172a;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+            /* Ukuran */
+            --radius: 12px;
+            --header-height: 70px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #eef6f3);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Utility */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
+        .text-center { text-align: center; }
+
+        /* --- Header / Navigation --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--card);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+        header .content-wrapper {
+             display: flex;
+             align-items: center;
+             justify-content: space-between;
+             width: 100%;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .logo-text {
+            line-height: 1.2;
+        }
+        .logo-text div:first-child { font-weight: 700; font-size: 16px; }
+        .logo-text div:last-child { font-size: 11px; color: var(--muted); }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent);
+            background: rgba(11,110,79,0.05);
+        }
+
+        /* Menu Mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn:hover { background: #08553e; }
+        .btn-wa { background: #25D366; }
+        .btn-wa:hover { background: #1da851; }
+
+
+        /* --- Hero Section --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            align-items: start;
+            margin: 40px 0;
+        }
+
+        .hero-main h1 {
+            font-size: 40px;
+            line-height: 1.1;
+            margin: 0 0 16px;
+        }
+        .hero-main .lead {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+        .eyebrow {
+            display: inline-block;
+            background: rgba(11, 110, 79, 0.1);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Stats --- */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .stat strong {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat span {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* --- Donation Panel (Sidebar) --- */
+        .donation-panel {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px; /* Jaga agar tetap di bagian atas saat discroll */
+        }
+        .donation-panel h3 {
+            margin: 0 0 10px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .progress {
+            height: 10px;
+            background: #eef6f3;
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 10px 0 6px;
+        }
+        .progress>i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transition: width 0.5s;
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+        .amounts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .amounts button {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+        .amounts button:hover {
+            border-color: var(--accent);
+        }
+        .amounts button.active {
+            background: linear-gradient(90deg, var(--accent), #08553e);
+            color: white;
+            border: 0;
+            box-shadow: 0 2px 5px rgba(11,110,79,0.3);
+        }
+        .form-row {
+            display: flex;
+            gap: 8px
+        }
+        input[type=text],
+        input[type=email],
+        input[type=number],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 8px; /* Untuk memisahkan dari label/element sebelumnya */
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(11,110,79,0.2);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .donate-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            margin-top: 15px;
+        }
+        .donate-btn:hover {
+             background: linear-gradient(90deg, #08553e, #0972a4);
+        }
+
+        /* --- Section Content --- */
+        .section {
+            padding: 50px 0;
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.7;
+        }
+        .section-separator {
+             border-top: 1px solid #eef6f3;
+             margin-top: 40px;
+        }
+
+        .section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+        .section h3 {
+            font-size: 22px;
+            color: var(--accent);
+            margin: 25px 0 10px;
+        }
+
+        /* Causes Grid */
+        .grid-causes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .cause {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent-2);
+        }
+        .cause h4 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .cause p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+        .cause-item {
+            background: #ffffff;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .cause-item h3 {
+             margin: 0 0 10px;
+             font-size: 20px;
+             color: var(--text-primary);
+        }
+        .cause-item p {
+            margin: 0;
+            font-size: 15px;
+            color: #475569;
+        }
+        
+        /* QRIS */
+        .qris-container {
+             background: var(--card);
+             padding: 30px;
+             border-radius: var(--radius);
+             box-shadow: var(--shadow);
+             max-width: 400px;
+             margin: 30px auto;
+             text-align: center;
+        }
+        .qris-image {
+            width: 250px;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        /* Footer */
+        footer {
+            margin: 50px 0 40px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 14px;
+        }
+        footer p {
+             margin: 0 0 6px;
+        }
+
+
+        /* ======================================= */
+        /* MEDIA QUERIES (RESPONSIVENESS) */
+        /* ======================================= */
+
+        @media (max-width: 1050px) {
+            .hero { grid-template-columns: 1fr 340px; gap: 30px; }
+            .donation-panel { padding: 20px; }
+            .hero-main h1 { font-size: 34px; }
+        }
+
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr; /* Tumpuk Hero dan Panel Donasi */
+                gap: 40px;
+                margin-top: 20px;
+            }
+            .donation-panel {
+                position: static; /* Hilangkan sticky di mobile */
+                order: -1; /* Pindahkan panel donasi ke atas pada mobile */
+            }
+            .stats { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+            .section { padding: 40px 0; }
+            .section h2 { font-size: 28px; }
+        }
+
+        @media (max-width: 650px) {
+            /* Sembunyikan Navigasi & Tampilkan Toggle */
+            nav { display: none; }
+            .menu-toggle { display: block; }
+            header .content-wrapper { padding: 0 15px; }
+            .container { padding: 0 15px; }
+            
+            .hero-main h1 { font-size: 30px; }
+            .hero-main .lead { font-size: 16px; margin-bottom: 20px; }
+            .stats { gap: 10px; }
+            .stat strong { font-size: 18px; }
+            .amounts { grid-template-columns: 1fr; } /* Tumpuk pilihan nominal */
+            .form-row { flex-direction: column; gap: 0; }
+            input[type=text], input[type=email] { margin-top: 10px; }
+            .qris-image { width: 100%; max-width: 250px; }
+        }
+        /* --- Tambahan CSS di bagian :root --- */
+:root {
+    /* ... (CSS yang sudah ada) ... */
+    --stat-bg: #eef6f3; /* Latar belakang untuk card statistik */
+}
+
+/* --- Perbaikan CSS untuk Stats --- */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+    /* Hapus border atas dan bawah */
+    border: none;
+    padding: 0;
+}
+
+.stat {
+    background: var(--stat-bg); /* Latar belakang Card */
+    padding: 15px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color); /* Tambahkan border tipis */
+}
+
+.stat strong {
+    display: block;
+    font-size: 22px; /* Perbesar sedikit angka utama */
+    font-weight: 800; /* Pertegas */
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+.stat span {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+@media (max-width: 860px) {
+    /* Pastikan tampilan di mobile tetap rapi */
+    .stats {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+}
+/* --- Perubahan CSS untuk Program Utama (Grid Causes) --- */
+
+/* Gaya untuk kontainer grid */
+.grid-causes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Jarak antar kartu lebih lega */
+    margin-top: 30px;
+}
+
+/* Gaya untuk setiap kartu program */
+.cause-item {
+    background: #ffffff;
+    /* Hapus border-left lama */
+    border-left: none; 
+    padding: 25px;
+    border-radius: 14px; /* Lebih membulat */
+    /* Shadow yang lebih menonjol */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05); 
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #f1f5f9; /* Border tipis */
+}
+
+/* Efek hover untuk interaksi */
+.cause-item:hover {
+    transform: translateY(-5px); /* Sedikit naik saat di-hover */
+    box-shadow: 0 15px 30px rgba(11, 110, 79, 0.1); /* Shadow yang lebih hijau saat hover */
+}
+
+.cause-item h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+}
+
+/* Penataan Ikon di dalam H3 */
+.cause-item h3 i {
+    font-size: 24px;
+    margin-right: 12px;
+    /* Gunakan warna aksen kedua untuk ikon */
+    color: var(--accent-2); 
+    /* Latar belakang lingkaran untuk ikon */
+    background: rgba(11, 158, 235, 0.1); 
+    padding: 10px;
+    border-radius: 50%;
+    width: 44px; /* Pastikan ukuran ikon konsisten */
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cause-item p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--muted); /* Gunakan warna muted untuk deskripsi */
+    padding-left: 56px; /* Sejajarkan teks dengan ikon */
+}
+
+/* Media Query untuk Mobile */
+@media (max-width: 650px) {
+    .grid-causes {
+        gap: 20px;
+    }
+    .cause-item p {
+        padding-left: 0; /* Hapus padding agar teks full width di mobile */
+        margin-top: 15px; /* Tambah jarak dari judul */
+    }
+    .cause-item h3 {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    .cause-item h3 i {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+/* --- CSS untuk Bagian Tentang Kami (About Us) --- */
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.value-card {
+    background: var(--card);
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-top: 5px solid #eef6f3; /* Border atas tipis */
+    text-align: center;
+}
+
+.value-card i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.value-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 10px;
+}
+
+.value-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Media query untuk memastikan grid tetap rapi di layar yang lebih kecil */
+@media (max-width: 800px) {
+    .value-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* TITLE */
+.qris-title {
+    margin-bottom: 35px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* CARD QRIS */
+.qris-card {
+    background: #ffffff;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 28px 25px;
+    border-radius: 22px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    text-align: center;
+    animation: fadeIn 0.6s ease;
+}
+
+/* TEXT */
+.qris-desc {
+    font-size: 16px;
+    color: #475569;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.qris-note {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+/* QR IMAGE */
+.qris-img-wrapper {
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.qris-image {
+    width: 100%;
+    max-width: 260px;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+
+/* WHATSAPP BUTTON */
+.btn-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background: linear-gradient(135deg, #25d366, #18b954);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 600;
+
+    box-shadow: 0 6px 15px rgba(37,211,102,0.4);
+    transition: 0.3s ease;
+}
+
+.btn-wa:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 18px rgba(37,211,102,0.55);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .qris-card {
+        padding: 22px;
+    }
+
+    .qris-title {
+        font-size: 24px;
+    }
+
+    .btn-wa {
+        font-size: 15px;
+        padding: 13px 18px;
+    }
+
+    .qris-image {
+        max-width: 210px;
+    }
+}
+#contact-section {
+    padding: 60px 20px;
+}
+
+.contact-card {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.contact-desc {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+    font-size: 15px;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 12px 15px;
+    border-radius: 14px;
+    background: #f9f9f9;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.contact-list i {
+    font-size: 22px;
+    margin-right: 12px;
+    color: var(--accent);
+}
+
+.contact-list span {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.contact-list a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .contact-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+    .contact-list span, .contact-list a {
+        margin-left: 34px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div id="mobileMenuOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:90;"></div>
+
+    <header>
+        <div class="container content-wrapper">
+            <div class="brand">
+                <div class="logo">OS</div>
+                <div class="logo-text">
+                    <div>Open Donasi Sumatra</div>
+                    <div>Membantu & Membangun</div>
+                </div>
+            </div>
+            <nav id="mainNav">
+                <a href="#about-us">Tentang</a>
+                <a href="#program-section">Program</a>
+                <a href="#contact-section">Kontak</a>
+                <a class="btn" href="#donate-section">Donasi</a>
+            </nav>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="hero">
+            <section class="hero-main">
+                <span class="eyebrow">Gerakan Sosial Kemanusiaan</span>
+                <h1>Bantu Pulihkan & Bangun Harapan untuk Sumatra</h1>
+                <p class="lead">Open Donasi Sumatra menggalang dana untuk bantuan darurat, rehabilitasi infrastruktur, pendidikan, dan program ekonomi lokal. Setiap bantuan — besar atau kecil — bermakna.</p>
+
+                <div class="stats">
+                    <div class="stat"><strong>Rp 120.450.000</strong><span>Terkumpul</span></div>
+                    <div class="stat"><strong>1.432</strong><span>Donatur</span></div>
+                    <div class="stat"><strong>8</strong><span>Program aktif</span></div>
+                </div>
+            </section>
+
+            <aside class="donation-panel" id="donate-section">
+                <h3>Donasi Sekarang</h3>
+                <p style="margin:6px 0 12px;color:var(--muted);font-size:14px;">Pilih nominal atau masukkan jumlah sendiri. Laporan penggunaan dana akan dikirim ke email Anda.</p>
+
+                <div class="progress" aria-hidden="true"><i style="width:55%"></i></div>
+                <div class="progress-info">
+                    <div>Target: Rp 300.000.000</div>
+                    <div>55% tercapai</div>
+                </div>
+
+                <div class="amounts" role="tablist" aria-label="Pilihan nominal">
+                    <button type="button" data-amount="50000">Rp 50.000</button>
+                    <button type="button" data-amount="100000">Rp 100.000</button>
+                    <button type="button" data-amount="250000">Rp 250.000</button>
+                    <button type="button" data-amount="500000">Rp 500.000</button>
+                </div>
+
+                <form id="donationForm" onsubmit="handleDonate(event)">
+                    <div>
+                        <input id="customAmount" type="number" min="1000" placeholder="Masukkan jumlah lain (minimal Rp 1.000)" style="margin-top:0;" required/>
+                    </div>
+
+                    <div class="form-row">
+                        <input id="name" type="text" placeholder="Nama lengkap" required />
+                        <input id="email" type="email" placeholder="Email (untuk laporan)" required />
+                    </div>
+
+                    <div>
+                        <textarea id="note" placeholder="Pesan/kepada program (opsional)"></textarea>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="donate-btn"><i class="fas fa-heart"></i> Donasi Sekarang</button>
+                    </div>
+
+                    <div id="msg" style="margin-top:10px;font-size:14px;color:var(--muted);text-align:center;"></div>
+                </form>
+
+                <hr style="margin:16px 0;border:none;border-top:1px solid #f1f5f9">
+                <div style="font-size:12px;color:var(--muted);text-align:center;">
+                    Pembayaran diproses melalui transfer bank / e-wallet.
+                </div>
+            </aside>
+        </main>
+<section id="about-us" class="section section-separator">
+    <h2 class="text-center">Tentang Kami</h2>
+    <div style="max-width: 1000px; margin: auto;"> <p class="lead text-center" style="margin-bottom: 40px; color: var(--text-primary); max-width: 700px; margin: 0 auto 40px;">
+            **Open Donasi Sumatra** adalah platform terbuka yang didedikasikan untuk menjembatani niat baik donatur dengan kebutuhan vital masyarakat di seluruh pulau Sumatra.
+        </p>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <i class="fas fa-bullseye" style="color: var(--accent);"></i>
+                <h4>Fokus Kebutuhan Vital</h4>
+                <p>Kami fokus pada bantuan darurat bencana, pendidikan, kemanusiaan, dan program pemberdayaan ekonomi lokal yang berdampak langsung.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-hands-helping" style="color: var(--accent-2);"></i>
+                <h4>Dukungan Kemanusiaan</h4>
+                <p>Kami hadir untuk menyalurkan dukungan dengan cepat dan aman kepada masyarakat yang paling membutuhkan uluran tangan di berbagai situasi.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-lock-open" style="color: #fca5a5;"></i> <h4>Transparansi Total</h4>
+                <p>Setiap dana diverifikasi, dicatat, dan dilaporkan secara berkala. Anda dapat melacak alur penggunaan donasi dengan jelas dan akuntabel.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+     <section id="program-section" class="section section-separator">
+    <h2 class="text-center">Program Utama</h2>
+    
+   <div class="grid-causes">
+
+ <div class="cause-item">
+    <h3><i class="fas fa-house-flood-water"></i> Bantuan Darurat Bencana</h3>
+    <p>Penyediaan makanan, obat-obatan, selimut, dan kebutuhan darurat vital untuk korban bencana alam di berbagai wilayah Sumatra.</p>
+</div>
+
+<div class="cause-item">
+    <h3><i class="fas fa-graduation-cap"></i> Pendidikan dan Beasiswa</h3>
+    <p>Dukungan dana untuk buku, seragam, peralatan belajar, renovasi sekolah, serta beasiswa bagi anak-anak kurang mampu.</p>
+</div>
+
+<div class="cause-item">
+    <h3><i class="fas fa-house-circle-check"></i> Rehabilitasi Infrastruktur</h3>
+    <p>Program perbaikan dan pembangunan kembali rumah tinggal, sekolah, atau rumah ibadah yang rusak akibat bencana atau kondisi struktural.</p>
+</div>
+
+<div class="cause-item">
+    <h3><i class="fas fa-chart-line-up"></i> Pemberdayaan Ekonomi</h3>
+    <p>Memberikan pelatihan keterampilan, modal usaha mikro (UMKM), dan pendampingan bisnis bagi keluarga prasejahtera agar mandiri secara finansial.</p>
+</div>
+
+<div class="cause-item">
+    <h3><i class="fas fa-hand-holding-heart"></i> Kemanusiaan Umum</h3>
+    <p>Penyaluran bantuan umum untuk kebutuhan kesehatan, sanitasi, dan gizi rutin bagi masyarakat yang berada di pelosok atau daerah terisolir.</p>
+</div>
+
+<div class="cause-item">
+    <h3><i class="fas fa-stethoscope"></i> Layanan Kesehatan Gratis</h3>
+    <p>Penyelenggaraan pemeriksaan kesehatan, pengobatan, dan penyediaan vitamin gratis secara berkala di lokasi-lokasi yang sulit dijangkau.</p>
+</div>
+
+</div>
+    </div>
+<section id="qris-section" class="section">
+    <h2 class="text-center qris-title">Alternatif Pembayaran QRIS</h2>
+
+    <div class="qris-card">
+
+        <p class="qris-desc">
+            Silakan berdonasi melalui <strong>QRIS</strong> berikut.  
+            Scan menggunakan aplikasi bank / e-wallet Anda.
+        </p>
+
+        <div class="qris-img-wrapper">
+            <img src="WhatsApp Image 2025-12-12 at 10.13.01_0a0bb4dc.jpg" alt="QRIS Donasi" class="qris-image">
+        </div>
+
+        <p class="qris-note">
+            <strong>Penting:</strong> Setelah transfer, kirimkan bukti donasi Anda  
+            untuk proses verifikasi.
+        </p>
+
+        <a class="btn-wa" href="https://wa.me/628342827344?text=Halo%20admin,%20saya%20sudah%20berdonasi%20QRIS.">
+            <i class="fab fa-whatsapp"></i> Konfirmasi via WhatsApp
+        </a>
+
+    </div>
+</section>
+
+
+      <section id="contact-section" class="section section-separator">
+    <h2 class="text-center">Hubungi Kami</h2>
+
+    <div class="contact-card">
+        <p class="contact-desc">
+            Hubungi pihak yang berwenang melalui kontak resmi berikut:
+        </p>
+
+        <ul class="contact-list">
+            <li>
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp :</span>
+                <a href="https://wa.me/628342827344" target="_blank">+62 8342827344</a>
+            </li>
+
+            <li>
+                <i class="fas fa-envelope"></i>
+                <span>Email :</span>
+                <a href="mailto:opendonasi.sumatra@gmail.com">opendonasi.sumatra@gmail.com</a>
+            </li>
+
+            <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Alamat :</span>
+                Sumatra, Indonesia
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+        <footer>
+            <p>© Open Donasi Sumatra 2025 — Seluruh Donasi Dilaporkan Secara Transparan &amp; Akuntabel.</p>
+            <p style="font-size:12px;">Desain dan kode oleh Komunitas Relawan IT Sumatra.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Simple client-side interactivity
+        const amountButtons = document.querySelectorAll('.amounts button');
+        const customAmount = document.getElementById('customAmount');
+        const msg = document.getElementById('msg');
+
+        // Select nominal buttons
+        amountButtons.forEach(b => b.addEventListener('click', () => {
+            amountButtons.forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            customAmount.value = b.dataset.amount;
+        }));
+
+        // Handle Form Submission (Simulation)
+        function handleDonate(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const amount = Number(customAmount.value) || 0;
+
+            if (!name || !email || amount < 1000) {
+                msg.style.color = '#b91c1c';
+                msg.textContent = 'Mohon lengkapi nama, email, dan pastikan jumlah donasi minimal Rp 1.000.';
+                return;
+            }
+
+            // --- SIMULASI PEMBAYARAN ---
+            msg.style.color = 'var(--accent)';
+            msg.textContent = `Donasi Rp ${amount.toLocaleString('id-ID')} dari ${name} sedang diproses...`;
+            document.getElementById('donationForm').reset();
+            amountButtons.forEach(x => x.classList.remove('active'));
+            
+            // Di implementasi nyata, ini akan memanggil API Midtrans/Payment Gateway:
+            // fetch("/api/create-midtrans-transaction", { method: "POST", ... }).then(response => {
+            //     // Buka Midtrans Snap Pop Up
+            //     window.snap.pay(response.token);
+            // });
+
+            // Simulasi Sukses setelah 2 detik
+            setTimeout(() => {
+                msg.textContent = `Terima kasih, ${name}! Donasi telah dicatat. Cek email ${email} untuk panduan pembayaran (simulasi).`;
+            }, 2000);
+        }
+        
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            // Untuk layar kecil, tampilkan nav sebagai overlay (perlu CSS tambahan jika ingin tampilan sidebar)
+            if (nav.style.display === 'flex' || nav.style.display === 'block') {
+                nav.style.display = 'none';
+                overlay.style.display = 'none';
+            } else {
+                // Di sini, kita hanya mengubahnya menjadi block/flex sederhana karena tidak ada CSS sidebar
+                nav.style.display = 'flex'; 
+                nav.style.flexDirection = 'column';
+                nav.style.position = 'absolute';
+                nav.style.top = '70px';
+                nav.style.right = '15px';
+                nav.style.background = 'white';
+                nav.style.padding = '15px';
+                nav.style.borderRadius = '8px';
+                nav.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                nav.style.minWidth = '200px';
+                
+                // Close menu saat link diklik (diperlukan dalam implementasi penuh)
+                nav.querySelectorAll('a').forEach(link => link.onclick = () => {
+                    if (window.innerWidth <= 650) nav.style.display = 'none';
+                });
+
+                // Tampilkan overlay jika menggunakan tampilan sidebar mobile
+                // overlay.style.display = 'block'; 
+            }
+        }
+
+        // Script logic untuk bagian server (Node.js/Express) dihilangkan karena ini hanya front-end HTML/CSS/JS.
+        // Bagian yang tersisa adalah kode JavaScript murni untuk interaktivitas front-end.
+        
+    </script>
+</body>
+</html>
